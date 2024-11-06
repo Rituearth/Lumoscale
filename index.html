@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumoscale - Digital Marketing Solutions</title>
+    <style>
+        :root {
+            --primary-color: #FFE31A;
+            --secondary-color: #000000;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --blur-effect: blur(10px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--secondary-color);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+            padding: 0.5rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo-svg {
+            width: 60px;
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-svg:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px var(--primary-color));
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            fill: #000000; /* Updated logo text color */
+            transition: fill 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--primary-color);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 227, 26, 0.3);
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 5% 60px;
+            background: linear-gradient(45deg, var(--secondary-color), #1a1a1a);
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        .about-section, .contact-section {
+            min-height: 100vh;
+            padding: 120px 5% 60px;
+            background: linear-gradient(135deg, var(--secondary-color), #1a1a1a);
+        }
+
+        .about-content, .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-title, .contact-title, .services-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text, .services-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--white);
+            margin-bottom: 3rem;
+        }
+
+        .boxes-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .box {
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur-effect);
+            padding: 2rem;
+            border-radius: 20px;
+            width: 300px;
+            text-align: center;
+            border: 1px solid rgba(255, 227, 26, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .box-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .box-icon, .service-icon, .social-icon { /* Updated SVG colors */
+            fill: var(--primary-color);
+            stroke: var(--secondary-color);
+            stroke-width: 0.5;
+        }
+
+        .box-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .services-section {
+            min-height: 100vh;
+            padding: 120px 5% 60px;
+            background: linear-gradient(135deg, var(--secondary-color), #1a1a1a);
+        }
+
+        .services-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .service-box {
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur-effect);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 227, 26, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            fill: var(--primary-color);
+            transform-origin: center;
+            transition: all 0.3s ease;
+        }
+
+        .service-box:hover .service-icon {
+            animation: techGlow 1.5s infinite alternate;
+        }
+
+        @keyframes techGlow {
+            0% { filter: drop-shadow(0 0 2px var(--primary-color)); }
+            100% { filter: drop-shadow(0 0 15px var(--primary-color)); }
+        }
+
+        .service-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+                        rgba(255, 227, 26, 0.2) 0%,
+                        transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .service-box:hover::before {
+            opacity: 1;
+        }
+
+        .service-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 227, 26, 0.2);
+        }
+
+        .service-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            color: var(--white);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            filter: drop-shadow(0 0 10px var(--primary-color));
+        }
+
+        .copyright {
+            margin-top: 4rem;
+            color: var(--white);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        input, textarea {
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #FFB800;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <svg class="logo-svg" viewBox="0 0 60 60">
+            <rect width="60" height="60" rx="10" fill="url(#logoGradient)" />
+            <defs>
+                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#FFE31A;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#FFB800;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <text x="5" y="25" class="logo-text">LUMO</text>
+            <text x="5" y="50" class="logo-text">SCALE</text>
+        </svg>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact Us</a>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Transform Your Digital Presence</h1>
+            <p class="hero-subtitle">Elevate your brand with our cutting-edge digital marketing solutions.</p>
+            <p class="hero-subtitle">We specialize in social media marketing, SEO optimization, and comprehensive website development services.</p>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <h1 class="about-title">About Us</h1>
+            <p class="about-text">Lumoscale is a SaaS marketing company focused on social media marketing, aimed at reducing cash burn and enhancing the quality of software products through detailed interactions with customers and page visitors.</p>
+            
+            <div class="boxes-container">
+                <div class="box">
+                    <svg class="box-icon" viewBox="0 0 24 24">
+                        <path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+                    </svg>
+                    <h2 class="box-title">Client Interaction</h2>
+                    <p>Enhancing customer relationships through meaningful interactions.</p>
+                </div>
+                
+                <div class="box">
+                    <svg class="box-icon" viewBox="0 0 24 24">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                    </svg>
+                    <h2 class="box-title">Project Detailing</h2>
+                    <p>Comprehensive project planning and execution for optimal results.</p>
+                </div>
+                
+                <div class="box">
+                    <svg class="box-icon" viewBox="0 0 24 24">
+                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    <h2 class="box-title">Trust</h2>
+                    <p>Building lasting relationships based on trust and transparency.</p>
+                </div>
+
+                <div class="box">
+                    <svg class="box-icon" viewBox="0 0 24 24">
+                        <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                    </svg>
+                    <h2 class="box-title">Success Rate</h2>
+                    <p>Consistently delivering high success rates for our clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section">
+        <div class="services-content">
+            <h1 class="services-title">Services</h1>
+            <p class="services-text">Lumoscale has vast experience in providing quality services across various domains.</p>
+            
+            <div class="services-grid">
+                <div class="service-box">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                    </svg>
+                    <h3 class="service-title">Software Development</h3>
+                    <p class="service-description">Custom software solutions tailored to your business needs.</p>
+                </div>
+                
+                <div class="service-box">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                    </svg>
+                    <h3 class="service-title">Software Maintenance</h3>
+                    <p class="service-description">Keeping your software up-to-date and running smoothly.</p>
+                </div>
+
+                <div class="service-box">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <h3 class="service-title">Digital Advertisements</h3>
+                    <p class="service-description">Targeted digital ad campaigns to boost your online presence.</p>
+                </div>
+
+                <div class="service-box">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <h3 class="service-title">Lead Generation</h3>
+                    <p class="service-description">Strategies to attract and convert potential customers.</p>
+                </div>
+
+                <div class="service-box">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <h3 class="service-title">SEO</h3>
+                    <p class="service-description">Optimizing your online content for better search engine rankings.</p>
+                </div>
+
+                <div class="service-box">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+                    </svg>
+                    <h3 class="service-title">Social Media Marketing</h3>
+                    <p class="service-description">Engaging social media strategies to grow your brand.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="contact-content">
+            <h1 class="contact-title">Get in Touch with us</h1>
+            
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/company/lumoscale" target="_blank" rel="noopener noreferrer">
+                    <svg class="social-icon" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/lumoscale" target="_blank" rel="noopener noreferrer">
+                    <svg class="social-icon" viewBox="0 0 24 24">
+                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/lumoscale_12/profilecard/?igsh=MW1qNzk5cTc3YzZtcQ==" target="_blank" rel="noopener noreferrer">
+                    <svg class="social-icon" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/918919053970" target="_blank" rel="noopener noreferrer">
+                    <svg class="social-icon" viewBox="0 0 24 24">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Lumoscale. All rights reserved.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const boxes = document.querySelectorAll('.service-box');
+
+            boxes.forEach(box => {
+                box.addEventListener('mousemove', (e) => {
+                    const rect = box.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / box.clientWidth) * 100;
+                    const y = ((e.clientY - rect.top) / box.clientHeight) * 100;
+                    
+                    box.style.setProperty('--x', `${x}%`);
+                    box.style.setProperty('--y', `${y}%`);
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            function updateYear() {
+                document.getElementById('currentYear').textContent = new Date().getFullYear();
+            }
+            updateYear();
+        });
+    </script>
+</body>
+</html>
