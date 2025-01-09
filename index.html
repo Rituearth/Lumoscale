@@ -1,767 +1,275 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumoscale - Digital Marketing Solutions</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <style>
-        :root {
-            --primary-color: #000000;
-            --secondary-color: #ffffff;
-            --accent-color: #666666;
+'use client'
+
+import { useEffect, useRef } from 'react'
+import { Users, ClipboardList, Shield, TrendingUp, Code, Megaphone, Search, MessageSquare } from 'lucide-react'
+
+export default function Component() {
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show')
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '50px'
+      }
+    )
+
+    cardRefs.current.forEach((card) => {
+      if (card) observer.observe(card)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section with Black Background */}
+      <section className="relative min-h-screen bg-black">
+        {/* Background Effects */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          {/* Animated Ribbons */}
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-40 h-[600px]"
+              style={{
+                left: `${i * 20}%`,
+                top: '0',
+                transform: 'rotate(-45deg)',
+                animation: `float${i} 15s infinite linear`,
+                opacity: 0.6,
+              }}
+            >
+              <div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: `linear-gradient(45deg, 
+                    rgba(52, 225, 235, 0.8),
+                    rgba(109, 109, 232, 0.8),
+                    rgba(45, 227, 88, 0.8)
+                  )`,
+                  animation: 'colorPulse 8s infinite alternate',
+                  filter: 'blur(2px)',
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-6 py-32 flex flex-col items-center justify-center min-h-screen text-center">
+          <nav className="fixed top-0 left-0 right-0 bg-black/90 backdrop-blur-md px-6 py-4 flex items-center justify-between z-50">
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-01-03%20130256-SjoEWKmNffjQLEMEkCQx6cejrOA25A.png"
+              alt="Lumoscale Logo"
+              className="h-14 w-auto transition-transform hover:scale-110"
+            />
+            <div className="hidden md:flex gap-6">
+              {['Home', 'About Us', 'Services', 'Contact Us'].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase().replace(' ', '-')}`}
+                  className="px-6 py-2 text-white border border-white rounded-full hover:bg-white hover:text-black transition-all duration-300"
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+          </nav>
+
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-8 animate-slideUp">
+            Transform Your Digital Presence
+          </h1>
+          <p className="text-xl text-white mb-8 animate-slideUp opacity-80 max-w-2xl">
+            Elevate your brand with our cutting-edge digital marketing solutions.
+            We specialize in social media marketing, SEO optimization, and comprehensive website development services.
+          </p>
+          <a
+            href="https://forms.gle/9qLKGDjQSA5ud4oEA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-8 py-3 text-xl font-bold text-white border-2 border-white rounded-full
+              hover:bg-white hover:text-black transition-all duration-300 transform hover:-translate-y-1"
+          >
+            Apply Now
+          </a>
+        </div>
+      </section>
+
+      {/* About Section with White Background */}
+      <section className="py-20 bg-white" id="about-us">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-16 text-black">Why Choose Us</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                title: "Client Interaction",
+                description: "Enhancing customer relationships through meaningful interactions. We prioritize understanding your needs and delivering personalized solutions.",
+                icon: Users,
+                color: "from-[#34E1EB] to-[#6D6DE8]"
+              },
+              {
+                title: "Project Detailing",
+                description: "Comprehensive project planning and execution for optimal results. Our detailed approach ensures no aspect is overlooked.",
+                icon: ClipboardList,
+                color: "from-[#6D6DE8] to-[#2DE358]"
+              },
+              {
+                title: "Trust",
+                description: "Building lasting relationships based on trust and transparency. We maintain open communication and deliver on our promises.",
+                icon: Shield,
+                color: "from-[#34E1EB] to-[#2DE358]"
+              },
+              {
+                title: "Success Rate",
+                description: "Consistently delivering high success rates for our clients. Our track record speaks for itself with proven results.",
+                icon: TrendingUp,
+                color: "from-[#6D6DE8] to-[#34E1EB]"
+              }
+            ].map((card, index) => (
+              <div
+                key={index}
+                ref={el => cardRefs.current[index] = el}
+                className="transform translate-y-[-100vh] opacity-0 transition-all duration-1000 ease-out card-animation"
+              >
+                <div className="relative h-full group">
+                  <div className="relative bg-white rounded-2xl p-6 h-full shadow-lg border border-gray-100
+                    transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                    <div className={`w-12 h-12 mb-6 rounded-lg bg-gradient-to-r ${card.color} p-2.5 
+                      transform transition-transform duration-500 group-hover:scale-110`}>
+                      <card.icon className="w-full h-full text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-4 text-black">{card.title}</h3>
+                    <p className="text-gray-600">{card.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20 bg-gray-50" id="services">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-16 text-black">Our Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                title: "Software Development",
+                description: "Custom software solutions tailored to your business needs, built with cutting-edge technologies.",
+                icon: Code,
+                color: "from-[#34E1EB] to-[#6D6DE8]"
+              },
+              {
+                title: "Digital Marketing",
+                description: "Strategic marketing campaigns that drive growth and increase your online presence.",
+                icon: Megaphone,
+                color: "from-[#6D6DE8] to-[#2DE358]"
+              },
+              {
+                title: "SEO Optimization",
+                description: "Improve your search engine rankings and visibility with our expert SEO strategies.",
+                icon: Search,
+                color: "from-[#2DE358] to-[#34E1EB]"
+              },
+              {
+                title: "24/7 Support",
+                description: "Round-the-clock customer support to ensure your business runs smoothly at all times.",
+                icon: MessageSquare,
+                color: "from-[#34E1EB] to-[#6D6DE8]"
+              }
+            ].map((card, index) => (
+              <div
+                key={index}
+                ref={el => cardRefs.current[index + 4] = el}
+                className="transform translate-y-[-100vh] opacity-0 transition-all duration-1000 ease-out card-animation"
+              >
+                <div className="relative h-full group">
+                  <div className="relative bg-white rounded-2xl p-6 h-full shadow-lg border border-gray-100
+                    transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                    <div className={`w-12 h-12 mb-6 rounded-lg bg-gradient-to-r ${card.color} p-2.5 
+                      transform transition-transform duration-500 group-hover:scale-110`}>
+                      <card.icon className="w-full h-full text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-4 text-black">{card.title}</h3>
+                    <p className="text-gray-600">{card.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-20 bg-white" id="contact-us">
+        <div className="container mx-auto px-6 max-w-xl">
+          <h2 className="text-4xl font-bold text-center mb-16 text-black">Get in Touch</h2>
+          <form className="space-y-6">
+            <input
+              type="text"
+              placeholder="Your Name"
+              className="w-full p-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#6D6DE8] outline-none"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Your Email"
+              className="w-full p-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#6D6DE8] outline-none"
+              required
+            />
+            <textarea
+              placeholder="Your Message"
+              rows={5}
+              className="w-full p-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#6D6DE8] outline-none"
+              required
+            />
+            <button
+              type="submit"
+              className="w-full py-4 px-8 bg-black text-white rounded-lg font-semibold
+                hover:bg-white hover:text-black border-2 border-black transition-all duration-300"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <style jsx>{`
+        .card-animation.show {
+          transform: translateY(0);
+          opacity: 1;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        /* Main container styles */
-        .main-container {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-        }
-
-        /* Background container */
-        #star-field-root {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        /* Content wrapper */
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-        }
-
-        .navbar {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 0.5rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
-            backdrop-filter: blur(10px);
-        }
-
-        .logo-img {
-            height: 60px;
-            width: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-img:hover {
-            transform: scale(1.1);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--secondary-color);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--secondary-color);
-        }
-
-        .nav-links a:hover {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        .hero-section {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 5% 60px;
-            background: transparent;
-            text-align: center;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            color: var(--secondary-color);
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            animation: slideUp 1s ease forwards 0.5s;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            color: var(--secondary-color);
-            opacity: 0;
-            animation: slideUp 1s ease forwards 1s;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        @keyframes float0 { 0% { transform: translateY(-100vh) rotate(0deg); } 100% { transform: translateY(100vh) rotate(360deg); } }
+        @keyframes float1 { 0% { transform: translateY(-120vh) rotate(45deg); } 100% { transform: translateY(80vh) rotate(405deg); } }
+        @keyframes float2 { 0% { transform: translateY(-90vh) rotate(-45deg); } 100% { transform: translateY(110vh) rotate(315deg); } }
+        @keyframes float3 { 0% { transform: translateY(-110vh) rotate(90deg); } 100% { transform: translateY(90vh) rotate(450deg); } }
+        @keyframes float4 { 0% { transform: translateY(-80vh) rotate(-90deg); } 100% { transform: translateY(120vh) rotate(270deg); } }
+        
+        @keyframes colorPulse {
+          0% { filter: hue-rotate(0deg) brightness(1); }
+          50% { filter: hue-rotate(180deg) brightness(1.2); }
+          100% { filter: hue-rotate(360deg) brightness(1); }
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
-        .about-section, .contact-section, .services-section {
-            position: relative;
-            min-height: 100vh;
-            padding: 120px 5% 60px;
-            background: rgba(255, 255, 255, 0.95);
+        .animate-slideUp {
+          animation: slideUp 1s ease forwards;
         }
-
-        .about-content, .contact-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .about-title, .contact-title, .services-title {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .about-text, .services-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: var(--accent-color);
-            margin-bottom: 3rem;
-        }
-
-        .boxes-container {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 3rem;
-        }
-
-        .box {
-            background: var(--secondary-color);
-            padding: 2rem;
-            border-radius: 20px;
-            width: 300px;
-            text-align: center;
-            border: 1px solid var(--primary-color);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 20px var(--primary-color);
-        }
-
-        .box-title {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .box-icon, .service-icon, .social-icon {
-            fill: var(--primary-color);
-            stroke: #F7E7CE;
-            stroke-width: 0.5;
-        }
-
-        .box-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
-            display: block;
-        }
-
-        .services-section {
-            min-height: 100vh;
-            padding: 120px 5% 60px;
-        }
-
-        .services-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 2rem;
-        }
-
-        .service-box {
-            background: var(--secondary-color);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 1px solid var(--primary-color);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-icon {
-            width: 80px;
-            height: 80px;
-            fill: var(--primary-color);
-            transform-origin: center;
-            transition: all 0.3s ease;
-        }
-
-        .service-box:hover .service-icon {
-            animation: techGlow 1.5s infinite alternate;
-        }
-
-        @keyframes techGlow {
-            0% { filter: drop-shadow(0 0 2px var(--primary-color)); }
-            100% { filter: drop-shadow(0 0 15px var(--primary-color)); }
-        }
-
-        .service-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
-                        rgba(0, 0, 0, 0.2) 0%,
-                        transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .service-box:hover::before {
-            opacity: 1;
-        }
-
-        .service-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .service-title {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-description {
-            color: var(--accent-color);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            transform: translateY(-5px);
-            filter: drop-shadow(0 0 10px var(--primary-color));
-        }
-
-        .apply-button {
-            display: inline-block;
-            padding: 12px 24px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: var(--secondary-color);
-            background: transparent;
-            border: 2px solid var(--secondary-color);
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-            opacity: 0;
-            animation: slideUp 1s ease forwards 1.5s;
-        }
-
-        .apply-button:hover {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        input, textarea {
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid var(--primary-color);
-            background: var(--secondary-color);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
-        }
-
-        button {
-            padding: 1rem;
-            background: var(--primary-color);
-            color: var(--secondary-color);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        button:hover {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .nav-links a {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-            }
-
-            .box, .service-box {
-                width: 100%;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="main-container">
-        <!-- Star Field Background -->
-        <div id="star-field-root"></div>
-
-        <!-- Content Wrapper -->
-        <div class="content-wrapper">
-            <nav class="navbar">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-01-03%20130256-SjoEWKmNffjQLEMEkCQx6cejrOA25A.png" alt="Lumoscale Logo" class="logo-img">
-                <div class="nav-links">
-                    <a href="#home">Home</a>
-                    <a href="#about">About Us</a>
-                    <a href="#services">Services</a>
-                    <a href="#contact">Contact Us</a>
-                </div>
-            </nav>
-
-            <section id="home" class="hero-section">
-                <div class="hero-content">
-                    <h1 class="hero-title">Transform Your Digital Presence</h1>
-                    <a href="https://forms.gle/9qLKGDjQSA5ud4oEA" target="_blank" rel="noopener noreferrer" class="apply-button">
-                        Apply
-                    </a>
-                    <p class="hero-subtitle">Elevate your brand with our cutting-edge digital marketing solutions.</p>
-                    <p class="hero-subtitle">We specialize in social media marketing, SEO optimization, and comprehensive website development services.</p>
-                </div>
-            </section>
-
-            <section id="about" class="about-section">
-                <div class="about-content">
-                    <h1 class="about-title">About Us</h1>
-                    <p class="about-text">Lumoscale is a SaaS marketing company focused on social media marketing, aimed at reducing cash burn and enhancing the quality of software products through detailed interactions with customers and page visitors.</p>
-                    
-                    <div class="boxes-container">
-                        <div class="box">
-                            <svg class="box-icon" viewBox="0 0 24 24">
-                                <path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
-                            </svg>
-                            <h2 class="box-title">Client Interaction</h2>
-                            <p class="about-text">Enhancing customer relationships through meaningful interactions.</p>
-                        </div>
-                        
-                        <div class="box">
-                            <svg class="box-icon" viewBox="0 0 24 24">
-                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-                            </svg>
-                            <h2 class="box-title">Project Detailing</h2>
-                            <p class="about-text">Comprehensive project planning and execution for optimal results.</p>
-                        </div>
-                        
-                        <div class="box">
-                            <svg class="box-icon" viewBox="0 0 24 24">
-                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                            </svg>
-                            <h2 class="box-title">Trust</h2>
-                            <p class="about-text">Building lasting relationships based on trust and transparency.</p>
-                        </div>
-
-                        <div class="box">
-                            <svg class="box-icon" viewBox="0 0 24 24">
-                                <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-                            </svg>
-                            <h2 class="box-title">Success Rate</h2>
-                            <p class="about-text">Consistently delivering high success rates for our clients.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="services" class="services-section">
-                <div class="services-content">
-                    <h1 class="services-title">Services</h1>
-                    <p class="services-text">Lumoscale has vast experience in providing quality services across various domains.</p>
-                    
-                    <div class="services-grid">
-                        <div class="service-box">
-                            <svg class="service-icon" viewBox="0 0 24 24">
-                                <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                            </svg>
-                            <h3 class="service-title">Software Development</h3>
-                            <p class="service-description">Custom software solutions tailored to your business needs.</p>
-                        </div>
-                        
-                        <div class="service-box">
-                            <svg class="service-icon" viewBox="0 0 24 24">
-                                <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                            </svg>
-                            <h3 class="service-title">Software Maintenance</h3>
-                            <p class="service-description">Keeping your software up-to-date and running smoothly.</p>
-                        </div>
-
-                        <div class="service-box">
-                            <svg class="service-icon" viewBox="0 0 24 24">
-                                <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                            <h3 class="service-title">Digital Advertisements</h3>
-                            <p class="service-description">Targeted digital ad campaigns to boost your online presence.</p>
-                        </div>
-
-                        <div class="service-box">
-                            <svg class="service-icon" viewBox="0 0 24 24">
-                                <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            </svg>
-                            <h3 class="service-title">Lead Generation</h3>
-                            <p class="service-description">Strategies to attract and convert potential customers.</p>
-                        </div>
-
-                        <div class="service-box">
-                            <svg class="service-icon" viewBox="0 0 24 24">
-                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                            <h3 class="service-title">SEO</h3>
-                            <p class="service-description">Optimizing your online content for better search engine rankings.</p>
-                        </div>
-
-                        <div class="service-box">
-                            <svg class="service-icon" viewBox="0 0 24 24">
-                                <path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
-                            </svg>
-                            <h3 class="service-title">Social Media Marketing</h3>
-                            <p class="service-description">Engaging social media strategies to grow your brand.</p>
-                        </div>
-
-                        <div class="service-box">
-                            <svg class="service-icon" viewBox="0 0 24 24">
-                                <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0zm-4 7a6 6 0 00-6 6v3h12v-3a6 6 0 00-6-6zm8-7a4 4 0 11-8 0 4 4 0 018 0z"/>
-                            </svg>
-                            <h3 class="service-title">Influencer Marketing</h3>
-                            <p class="service-description">Strategic partnerships with influencers to amplify your brand's reach and engagement.</p>
-                        </div>
-
-                        <div class="service-box">
-                            <svg class="service-icon" viewBox="0 0 24 24">
-                                <path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
-                            </svg>
-                            <h3 class="service-title">Client Support</h3>
-                            <p class="service-description">24/7 dedicated support to ensure your success and satisfaction.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="contact" class="contact-section">
-                <div class="contact-content">
-                    <h1 class="contact-title">Get in Touch with us</h1>
-                    
-                    <form>
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <textarea placeholder="Your Message" rows="5" required></textarea>
-                        <button type="submit">Send Message</button>
-                    </form>
-
-                    <div class="social-icons">
-                        <a href="https://www.linkedin.com/company/lumoscale" target="_blank" rel="noopener noreferrer">
-                            <svg class="social-icon" viewBox="0 0 24 24">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.facebook.com/lumoscale" target="_blank" rel="noopener noreferrer">
-                            <svg class="social-icon" viewBox="0 0 24 24">
-                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.instagram.com/lumoscale_12/profilecard/?igsh=MW1qNzk5cTc3YzZtcQ==" target="_blank" rel="noopener noreferrer">
-                            <svg class="social-icon" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </section>
-        </div>
+      `}</style>
     </div>
-
-    <script type="text/javascript">
-        // StarField Component
-        function StarField({ color = '#FFEED4', particleCount = 80, meteorCount = 4 }) {
-            const canvasRef = React.useRef(null);
-            const frameRef = React.useRef();
-            const mouseRef = React.useRef({ x: 0, y: 0 });
-
-            React.useEffect(() => {
-                const canvas = canvasRef.current;
-                if (!canvas) return;
-
-                const ctx = canvas.getContext('2d');
-                if (!ctx) return;
-
-                // Settings
-                const linkDistance = 120;
-                const linkWidth = 0.5;
-                const particleSpeed = 0.3;
-                const meteorSpeed = 8;
-                const particleSize = 1.5;
-                const particleOpacity = 0.6;
-                const linkOpacity = 0.15;
-
-                class Particle {
-                    constructor() {
-                        this.x = Math.random() * canvas.width;
-                        this.y = Math.random() * canvas.height;
-                        this.vx = (Math.random() - 0.5) * particleSpeed;
-                        this.vy = (Math.random() - 0.5) * particleSpeed;
-                        this.size = Math.random() * particleSize + 0.5;
-                    }
-
-                    update() {
-                        this.x += this.vx + ((canvas.width/2 - mouseRef.current.x) * 0.00005);
-                        this.y += this.vy + ((canvas.height/2 - mouseRef.current.y) * 0.00005);
-
-                        if (this.x < 0) this.x = canvas.width;
-                        if (this.x > canvas.width) this.x = 0;
-                        if (this.y < 0) this.y = canvas.height;
-                        if (this.y > canvas.height) this.y = 0;
-                    }
-
-                    draw() {
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(255, 238, 212, ${particleOpacity})`;
-                        ctx.fill();
-                    }
-                }
-
-                class Meteor {
-                    constructor() {
-                        this.reset();
-                        this.tail = [];
-                        this.opacity = 0.3;
-                    }
-
-                    reset() {
-                        this.size = Math.random() * 1.5 + 0.5;
-                        if (Math.random() > 0.5) {
-                            this.x = 0;
-                            this.y = Math.random() * canvas.height;
-                            this.vx = meteorSpeed;
-                            this.vy = meteorSpeed * (Math.random() - 0.5);
-                        } else {
-                            this.x = Math.random() * canvas.width;
-                            this.y = 0;
-                            this.vx = meteorSpeed * (Math.random() - 0.5);
-                            this.vy = meteorSpeed;
-                        }
-                    }
-
-                    update() {
-                        this.tail.unshift({ x: this.x, y: this.y });
-                        if (this.tail.length > 15) this.tail.pop();
-
-                        this.x += this.vx;
-                        this.y += this.vy;
-
-                        if (this.x > canvas.width || this.y > canvas.height) {
-                            this.reset();
-                            this.tail = [];
-                        }
-                    }
-
-                    draw() {
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(255, 238, 212, ${this.opacity})`;
-                        ctx.fill();
-
-                        ctx.beginPath();
-                        ctx.moveTo(this.x, this.y);
-                        for (let i = 0; i < this.tail.length; i++) {
-                            const point = this.tail[i];
-                            ctx.lineTo(point.x, point.y);
-                        }
-                        ctx.strokeStyle = `rgba(255, 238, 212, ${this.opacity * 0.5})`;
-                        ctx.lineWidth = this.size * 0.8;
-                        ctx.stroke();
-                    }
-                }
-
-                const particles = Array.from({ length: particleCount }, () => new Particle());
-                const meteors = Array.from({ length: meteorCount }, () => new Meteor());
-
-                function drawLinks() {
-                    for (let i = 0; i < particles.length; i++) {
-                        for (let j = i + 1; j < particles.length; j++) {
-                            const dx = particles[i].x - particles[j].x;
-                            const dy = particles[i].y - particles[j].y;
-                            const distance = Math.sqrt(dx * dx + dy * dy);
-
-                            if (distance < linkDistance) {
-                                ctx.beginPath();
-                                ctx.moveTo(particles[i].x, particles[i].y);
-                                ctx.lineTo(particles[j].x, particles[j].y);
-                                ctx.strokeStyle = `rgba(255, 238, 212, ${(1 - distance/linkDistance) * linkOpacity})`;
-                                ctx.lineWidth = linkWidth;
-                                ctx.stroke();
-                            }
-                        }
-                    }
-                }
-
-                function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                    particles.forEach(particle => {
-                        particle.update();
-                        particle.draw();
-                    });
-
-                    drawLinks();
-
-                    meteors.forEach(meteor => {
-                        meteor.update();
-                        meteor.draw();
-                    });
-
-                    frameRef.current = requestAnimationFrame(animate);
-                }
-
-                function resize() {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                }
-
-                window.addEventListener('resize', resize);
-                window.addEventListener('mousemove', (e) => {
-                    mouseRef.current = { x: e.clientX, y: e.clientY };
-                });
-
-                resize();
-                mouseRef.current = { x: canvas.width / 2, y: canvas.height / 2 };
-                animate();
-
-                return () => {
-                    window.removeEventListener('resize', resize);
-                    if (frameRef.current) {
-                        cancelAnimationFrame(frameRef.current);
-                    }
-                };
-            }, []);
-
-            return React.createElement('canvas', {
-                ref: canvasRef,
-                style: {
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.85))',
-                    zIndex: 0
-                }
-            });
-        }
-
-        // Initialize the star field
-        const root = ReactDOM.createRoot(document.getElementById('star-field-root'));
-        root.render(React.createElement(StarField, {
-            particleCount: 80,
-            meteorCount: 4,
-            color: '#FFEED4'
-        }));
-    </script>
-</body>
-</html>
+  )
+}
